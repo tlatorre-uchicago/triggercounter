@@ -49,6 +49,7 @@ void CountInit(counts *count)
   count->eventn = 0;
   count->passn = 0;
   count->caen = 0;
+  count->nhit = 0;
 }
 
 // This function just puts a bunch of zeros in a hitinfo struct
@@ -63,6 +64,7 @@ static void InitHits(hitinfo *hits)
   hits->gtid = 0;
   hits->run = 0;
   hits->caen = 0;
+  hits->nhit = 0;
 }
 
 // This function reads out the information about each event that we need
@@ -175,6 +177,8 @@ int main(int argc, char *argv[])
 
             count.eventn++;
 
+            count.nhit += hits.nhit;
+
             if (hits.caen) count.caen += 1;
 
             if ((hits.triggertype & TRIG_PEDESTAL) == 0) {
@@ -186,9 +190,14 @@ int main(int argc, char *argv[])
             if (clock10 == 0) {
                 /* First event. Initialize the last 10 MHz clock. */
                 clock10 = hits.time10;
-            } else if (hits.time10 > clock10 + 1000000) {
-                /* print time, rate, caen %. */
-                printf("%" PRIu64 " %10" PRIu64 " %.2f%%\n", hits.time10, count.passn, count.caen*100.0/(float) count.eventn);
+            } else if (hits.time10 > clock10 + 1e6) {
+                /* print time, events, rate, avg. nhit, caen %. */
+                printf("%" PRIu64 " %-10" PRIu64 " %-10" PRIu64 " %-10.2f %-10.2f%%\n",
+                       hits.time10,
+                       count.eventn*10,
+                       count.passn*10,
+                       count.nhit/(float) count.eventn,
+                       count.caen*100.0/(float) count.eventn);
                 CountInit(&count);
                 clock10 = hits.time10;
             }
