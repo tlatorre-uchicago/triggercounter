@@ -40,7 +40,8 @@ struct counts
 {
 uint64_t passn;
 uint64_t eventn;
-uint64_t recordn;
+/* Number of events with caen. */
+uint64_t caen;
 };
 
 // Structure to hold all the information we want to read out of the hits
@@ -54,4 +55,5 @@ uint16_t nhit;
 uint32_t reclen;
 uint32_t gtid;
 uint32_t run;
+int caen;
 };

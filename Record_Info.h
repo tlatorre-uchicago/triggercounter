@@ -807,6 +807,7 @@ typedef struct MCJitter {
 #define SUB_TYPE_HCA_QUEENS    15UL     // same as CAL_FLAGS but with Queen's calibration
 #define SUB_TYPE_NCD           16UL     // NCD data
 #define SUB_TYPE_CAEN          32UL     // SNO+ CAEN data
+#define SUB_TYPE_TUBII         33UL     // SNO+ CAEN data
 
 /* sub-field header */
 typedef struct SubFieldHeader {
