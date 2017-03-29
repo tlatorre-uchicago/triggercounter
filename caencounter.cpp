@@ -163,7 +163,9 @@ int main(int argc, char *argv[])
 
     // Initialize the hitinfo object
     hitinfo hits;
+    hitinfo hits_last;
     InitHits(&hits);
+    InitHits(&hits_last);
 
     // Loop over ZDAB Records
     counts count;
@@ -177,12 +179,21 @@ int main(int argc, char *argv[])
 
             count.eventn++;
 
+            count.nhit += hits.nhit;
+
             if (hits.caen) count.caen += 1;
+
+            /* Print the time between the last event and this event, and
+             * whether it has CAEN data. */
+            if (clock10) {
+                printf("%" PRId64 " %i %i\n", (int64_t) hits.time50 - hits_last.time50, hits.caen, hits.nhit);
+            }
+
+            hits_last = hits;
 
             if ((hits.triggertype & TRIG_PEDESTAL) == 0) {
                 if (hits.triggertype & TRIG_NHIT_100_MED) {
                     count.passn += 1;
-                    count.nhit += hits.nhit;
                 }
             }
 
@@ -191,12 +202,12 @@ int main(int argc, char *argv[])
                 clock10 = hits.time10;
             } else if (hits.time10 > clock10 + 1e6) {
                 /* print time, events, rate, avg. nhit, caen %. */
-                printf("%" PRIu64 " %-10" PRIu64 " %-10" PRIu64 " %-10.2f %-10.2f\n",
-                       hits.time10,
-                       count.eventn*10,
-                       count.passn*10,
-                       count.nhit/(float) count.passn,
-                       count.caen*100.0/(float) count.eventn);
+                //printf("%" PRIu64 " %-10" PRIu64 " %-10" PRIu64 " %-10.2f %-10.2f\n",
+                //       hits.time10,
+                //       count.eventn*10,
+                //       count.passn*10,
+                //       count.nhit/(float) count.eventn,
+                //       count.caen*100.0/(float) count.eventn);
                 CountInit(&count);
                 clock10 = hits.time10;
             }
