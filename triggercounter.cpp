@@ -180,7 +180,7 @@ int main(int argc, char *argv[])
             if (hits.caen) count.caen += 1;
 
             if ((hits.triggertype & TRIG_PEDESTAL) == 0) {
-                if (hits.triggertype & TRIG_NHIT_100_MED) {
+                if (hits.triggertype & (TRIG_NHIT_100_MED | TRIG_NHIT_100_LO | TRIG_NHIT_20_LB)) {
                     count.passn += 1;
                     count.nhit += hits.nhit;
                 }

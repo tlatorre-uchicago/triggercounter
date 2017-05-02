@@ -3,71 +3,24 @@ set -x
 
 DATA=/raid/data/l1
 
-./triggercounter $DATA/SNOP_0000015071_000.zdab > SNOP_0000015071.txt
-./triggercounter $DATA/SNOP_0000015072_000.zdab > SNOP_0000015072.txt
-./triggercounter $DATA/SNOP_0000015073_000.zdab > SNOP_0000015073.txt
-./triggercounter $DATA/SNOP_0000015074_000.zdab > SNOP_0000015074.txt
-./triggercounter $DATA/SNOP_0000015075_000.zdab > SNOP_0000015075.txt
-./triggercounter $DATA/SNOP_0000015076_000.zdab > SNOP_0000015076.txt
-./triggercounter $DATA/SNOP_0000015077_000.zdab > SNOP_0000015077.txt
-./triggercounter $DATA/SNOP_0000015078_000.zdab > SNOP_0000015078.txt
-./triggercounter $DATA/SNOP_0000015079_000.zdab > SNOP_0000015079.txt
-./triggercounter $DATA/SNOP_0000015080_000.zdab > SNOP_0000015080.txt
-./triggercounter $DATA/SNOP_0000015081_000.zdab > SNOP_0000015081.txt
-./triggercounter $DATA/SNOP_0000015082_000.zdab > SNOP_0000015082.txt
-./triggercounter $DATA/SNOP_0000015083_000.zdab > SNOP_0000015083.txt
-./triggercounter $DATA/SNOP_0000015084_000.zdab > SNOP_0000015084.txt
-./triggercounter $DATA/SNOP_0000015091_000.zdab > SNOP_0000015091.txt
-./triggercounter $DATA/SNOP_0000015092_000.zdab > SNOP_0000015092.txt
+# Nhit 100 Med with low channel thresholds
+RUNS="17450 17451 17452 17453 17454 17455 17456 17457 17459 17460 17461 17462 17463 "
+# Nhit 40 Lo with low channel thresholds
+RUNS+="17466 17467 17468 17469 17470 17471 17472 17473 17474 17475 17476 17477 "
+# Nhit 100 Lo with low channel thresholds
+RUNS+="17479 17480 17481 17482 17483 17484 17485 "
+# Nhit 100 Med with high channel thresholds
+RUNS+="17929 17930 17931 17932 17933 17934 17935 17936 17937 17938 17939 17940 17941 17942"
+# Nhit 40 Lo with high channel thresholds
+RUNS="17945 17946 17947 17948 17949 17950 17951 17952 17953 17954 17955 17956 17957 17958"
+# Nhit 100 Lo with high channel thresholds
+RUNS="17960 17961 17962 17963 17964 17965 17966 17967 17968 17969 17970 17971 17972"
 
-# remove the last line
-sed -i '$ d' SNOP_0000015071.txt
-sed -i '$ d' SNOP_0000015072.txt
-sed -i '$ d' SNOP_0000015073.txt
-sed -i '$ d' SNOP_0000015074.txt
-sed -i '$ d' SNOP_0000015075.txt
-sed -i '$ d' SNOP_0000015076.txt
-sed -i '$ d' SNOP_0000015077.txt
-sed -i '$ d' SNOP_0000015078.txt
-sed -i '$ d' SNOP_0000015079.txt
-sed -i '$ d' SNOP_0000015080.txt
-sed -i '$ d' SNOP_0000015081.txt
-sed -i '$ d' SNOP_0000015082.txt
-sed -i '$ d' SNOP_0000015083.txt
-sed -i '$ d' SNOP_0000015084.txt
-sed -i '$ d' SNOP_0000015091.txt
-sed -i '$ d' SNOP_0000015092.txt
-
-./caencounter $DATA/SNOP_0000015071_000.zdab > SNOP_0000015071_caen.txt
-./caencounter $DATA/SNOP_0000015072_000.zdab > SNOP_0000015072_caen.txt
-./caencounter $DATA/SNOP_0000015073_000.zdab > SNOP_0000015073_caen.txt
-./caencounter $DATA/SNOP_0000015074_000.zdab > SNOP_0000015074_caen.txt
-./caencounter $DATA/SNOP_0000015075_000.zdab > SNOP_0000015075_caen.txt
-./caencounter $DATA/SNOP_0000015076_000.zdab > SNOP_0000015076_caen.txt
-./caencounter $DATA/SNOP_0000015077_000.zdab > SNOP_0000015077_caen.txt
-./caencounter $DATA/SNOP_0000015078_000.zdab > SNOP_0000015078_caen.txt
-./caencounter $DATA/SNOP_0000015079_000.zdab > SNOP_0000015079_caen.txt
-./caencounter $DATA/SNOP_0000015080_000.zdab > SNOP_0000015080_caen.txt
-./caencounter $DATA/SNOP_0000015081_000.zdab > SNOP_0000015081_caen.txt
-./caencounter $DATA/SNOP_0000015082_000.zdab > SNOP_0000015082_caen.txt
-./caencounter $DATA/SNOP_0000015083_000.zdab > SNOP_0000015083_caen.txt
-./caencounter $DATA/SNOP_0000015084_000.zdab > SNOP_0000015084_caen.txt
-./caencounter $DATA/SNOP_0000015091_000.zdab > SNOP_0000015091_caen.txt
-./caencounter $DATA/SNOP_0000015092_000.zdab > SNOP_0000015092_caen.txt
-
-sed -i '$ d' SNOP_0000015071_caen.txt
-sed -i '$ d' SNOP_0000015072_caen.txt
-sed -i '$ d' SNOP_0000015073_caen.txt
-sed -i '$ d' SNOP_0000015074_caen.txt
-sed -i '$ d' SNOP_0000015075_caen.txt
-sed -i '$ d' SNOP_0000015076_caen.txt
-sed -i '$ d' SNOP_0000015077_caen.txt
-sed -i '$ d' SNOP_0000015078_caen.txt
-sed -i '$ d' SNOP_0000015079_caen.txt
-sed -i '$ d' SNOP_0000015080_caen.txt
-sed -i '$ d' SNOP_0000015081_caen.txt
-sed -i '$ d' SNOP_0000015082_caen.txt
-sed -i '$ d' SNOP_0000015083_caen.txt
-sed -i '$ d' SNOP_0000015084_caen.txt
-sed -i '$ d' SNOP_0000015091_caen.txt
-sed -i '$ d' SNOP_0000015092_caen.txt
+for run in $RUNS; do
+    filename=$(printf "SNOP_%010d" $run)
+    ./triggercounter $DATA/${filename}_000.zdab > ${filename}.txt
+    # remove the last line
+    sed -i '$ d' $filename.txt
+    #./caencounter $DATA/${filename}_000.zdab > ${filename}_caen.txt
+    #sed -i '$ d' ${filename}_caen.txt
+done;
