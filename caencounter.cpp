@@ -18,6 +18,7 @@
 #include <inttypes.h>
 #include <arpa/inet.h>
 #include "struct.h"
+#include <vector>
 
 /* constants */
 #define MAX_BUFFSIZE        0x400000UL  // maximum size of zdab record buffer (4 MB)
@@ -167,6 +168,8 @@ int main(int argc, char *argv[])
     InitHits(&hits);
     InitHits(&hits_last);
 
+    std::vector<uint64_t> clock10_array;
+
     // Loop over ZDAB Records
     counts count;
     CountInit(&count);
@@ -183,10 +186,21 @@ int main(int argc, char *argv[])
 
             if (hits.caen) count.caen += 1;
 
+            clock10_array.push_back(hits.time10);
+
+            /* Get rid of all events older than 100 ms. */
+            for (i = 0; i < clock10_array.size(); i++) {
+                if (clock10_array.at(i) < (hits.time10 - 1000000)) {
+                    clock10_array.erase(clock10_array.begin()+i);
+                }
+            }
+
+            int num_events_in_last_second = clock10_array.size();
+
             /* Print the time between the last event and this event, and
-             * whether it has CAEN data. */
-            if (clock10) {
-                printf("%" PRId64 " %i %i\n", (int64_t) hits.time50 - hits_last.time50, hits.caen, hits.nhit);
+             * the number of events in the last 100 ms. */
+            if (!hits.caen) {
+                printf("%" PRId64 " %zu\n", (int64_t) hits.time50 - hits_last.time50, clock10_array.size());
             }
 
             hits_last = hits;
